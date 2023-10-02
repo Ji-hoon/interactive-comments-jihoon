@@ -29,33 +29,87 @@ body {
 
 #comments-section, 
 #comment-input {
-    max-width: 640px;
+    max-width: 600px;
     margin: 0 auto;
-    gap: 16px;
+    gap: 12px;
 }
 
 .comment-item {
     background-color: #FFF;
     padding: 16px;
     border-radius: 5px;
-    gap: 8px;
+    gap: 16px;
     align-items: flex-start;
     cursor: default;
+}
+.comment-item:last-child {
+    margin-bottom: 24px;
 }
 .reply {
     margin-left: 48px;
 }
 .col-rank {
     background-color: #f5f6fd;
+    padding: 4px;
+    border-radius: 5px;
+    gap: 4px;
+    align-items: center;
+    min-width: 24px;
 }
-
+.col-rank .btn {
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    line-height: 24px;
+}
+.col-content {
+    gap: 8px;
+}
+.col-content div[class*="comment-author"] {
+    align-items: center;
+    gap: 8px;
+}
+.comment-author-info {
+    flex: 1 0;
+}
+.comment-author-name {
+    font-weight: bold;
+    text-transform: capitalize;
+}
+.comment-author-name ~ span {
+    color: #808080;
+}
 .comment-author-profile {
     width: 24px;
     height: 24px;
     object-fit: cover;
 }
-.comment-author-name.you:after {
-    content: 'YOU';
+
+.mention {
+    color: #555eb1;
+    font-weight: bold;
+}
+.mention:before {
+    content: '@';
+}
+.comment-author a {
+    display: flex;
+    text-decoration: none;
+    font-weight: bold;
+    color: #545bb3;
+    gap: 4px;
+    align-items: center;
+}
+.comment-author a.comment-delete {
+    color: #eb646b;
+}
+.comment-author a img {
+    width: 16px;
+    height: 16px;
+}
+
+.my-comment .comment-author-name:after {
+    content: 'You';
     font-size: 12px;
     font-weight: bold;
     background-color: #545bb3;
@@ -63,21 +117,65 @@ body {
     padding: 2px 4px;
     border-radius: 5px;
     margin-left: 4px;
+    transform: translateY(-1px);
+    display: inline-block;
 }
+
+.my-comment .comment-author a.comment-update,
+.my-comment .comment-author a.comment-delete {
+    display: flex;
+}
+.my-comment .comment-author a.comment-reply {
+    display: none;
+}
+.comment-item:not(.my-comment) .comment-author a.comment-update,
+.comment-item:not(.my-comment) .comment-author a.comment-delete {
+    display: none;
+}
+
 #comment-input {
     position: sticky;
     bottom: 0;
     gap: 8px;
     background-color: inherit;
     border-bottom: 16px solid #f5f6fa;
+    padding-top: 8px;
 }
-#comment-input .input-form {
+.input-form {
     border-radius: 5px;
     background-color: #FFF;
-    box-shadow: 0 0 0 8px #f5f6fa;
+    /* box-shadow: 0 0 0 8px #f5f6fa; */
     gap: 8px;
     padding: 16px;
 }
+.input-form img {
+    width: 36px;
+    height: 36px;
+}
+.input-form form {
+    flex: 1 0;
+    gap: 8px;
+    align-items: flex-start;
+}
 .input-form textarea {
-    min-width: calc(100% - 32px);
+    min-width: calc(100% - 84px);
+    height: 70px;
+    padding: 6px 8px;
+    box-sizing: border-box;
+    resize:none;
+    border-color: #d2d2d2;
+    border-radius: 5px;
+    outline: none;
+    font-size: 15px;
+}
+.input-form button[type="submit"] {
+    background-color: #545bb3;
+    color: #FFF;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    font-size: 15px;
+    min-width: 76px;
+    cursor: pointer;
 }
