@@ -115,13 +115,19 @@ h2,
     object-fit: cover;
 }
 
+
 .mention {
     color: #555eb1;
     font-weight: bold;
+    display: none;
 }
 .mention:before {
     content: '@';
 }
+.reply .mention {
+    display: inline;
+}
+
 .comment-author a {
     display: flex;
     text-decoration: none;
