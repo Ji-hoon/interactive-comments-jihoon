@@ -43,7 +43,7 @@ h2,
 }
 
 #comments-section > div:last-child {
-    margin-bottom: 24px;
+    margin-bottom: 12px;
 }
 
 .comment-item {
@@ -217,4 +217,67 @@ h2,
     font-size: 15px;
     min-width: 76px;
     cursor: pointer;
+}
+
+
+/* 
+ * loading spinner css
+ * 
+ */
+.spinner {
+    min-height: 235px;
+    height: calc(100vh - 245px);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+  
+.spinner h3 {
+    position: relative;
+}
+  
+.spinner h3:after {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin-top: -40px;
+    margin-left: -20px;
+    border-radius: 50%;
+    border: 4px solid #c5c7ee;
+    border-top-color: #555eb1;
+    -webkit-animation: spinner 1s linear infinite;
+    animation: spinner 1s linear infinite;
+}
+  
+@-webkit-keyframes spinner {
+    to {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+}
+  
+@keyframes spinner {
+    to {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+}
+  
+  /* from MDN - https://developer.mozilla.org/ */
+.visually-hidden {
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    border: 0 !important;
+    -webkit-clip-path: inset(50%) !important;
+    clip-path: inset(50%) !important;
+    height: 1px !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    white-space: nowrap !important;
+    width: 1px !important;
 }
