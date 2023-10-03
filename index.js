@@ -1,14 +1,15 @@
-import {createCommentForm, createComment} from './scripts/createComment.js';
+import {createCommentForm, createComment, checkCharacterLength} from './scripts/createComment.js';
+import {replyComment} from './scripts/replyComment.js';
 
 export const commentSection = document.querySelector('#comments-section');
 
 export let commentData = {};
 export let myName = "";
 
-export function commentTemplate(originalCommentAuthor, item) {
+export function generateCommentElement(originalCommentAuthor, item, replyTo) {
     //console.log(originalCommentAuthor);
     return `
-    <div class="comment-item set-flex" id="${item.id}">
+    <div class="comment-item set-flex" id="${item.id}" >
         <div class="col-rank set-flex direction-col">
             <a class="btn rank-up" href="#">
                 <img src="./images/icon-plus.svg"/>
@@ -25,7 +26,7 @@ export function commentTemplate(originalCommentAuthor, item) {
                     <span class="comment-author-name">${item.user.username}</span>
                     <span class="">${item.createdAt}</span>
                 </div>
-                <a class="comment-reply" id="${item.id}" href="#">
+                <a class="comment-reply" id="${item.id}" reply-to="${item.replyingTo}" href="#">
                     <img src="./images/icon-reply.svg"/>
                     <span>Reply</span>
                 </a>
@@ -78,7 +79,7 @@ export function reloadData() {
 export function renderComments(data) {
     let innerContents = "";
     Array.from(data).forEach( (item) => {
-        innerContents += commentTemplate(item.user.username, item);
+        innerContents += generateCommentElement(item.user.username, item, null);
             // `<div class="comment-item set-flex" id="${item.id}">
             //     <div class="col-rank set-flex direction-col">
             //         <a class="btn rank-up" href="#">
@@ -123,7 +124,7 @@ export function renderReplies(data) {
     console.log(data);
     let innerContents = "";
     Array.from(data.replies).forEach( (item) => {
-        innerContents += commentTemplate(data.user.username, item);
+        innerContents += generateCommentElement(data.user.username, item, null);
             // `<div class="comment-item set-flex" id="${item.id}">
             //     <div class="col-rank set-flex direction-col">
             //         <a class="btn rank-up" href="#">
@@ -170,19 +171,47 @@ export function renderReplies(data) {
         if(targetItem.id==data.id) {
             console.log(targetItem);
             targetItem.insertAdjacentHTML('afterend', 
-                `<div class="reply set-flex direction-col">${innerContents}</div>`);
+                `<div class="reply set-flex direction-col" reply-to="${targetItem.id}">${innerContents}</div>`);
         }
     })
     
     return new Promise((resolve, reject) => {
-        resolve( 
-            Array.from(commentSection.querySelectorAll('.comment-item')).filter( (item) => {
-                if(String(item.querySelector('.comment-author-name').textContent) == myName) {
-                    console.log(item);
-                    item.classList.add('my-comment');
-                }
-            })
-        )
+        resolve( filterMyComment() )
     });
 
+}
+
+export function filterMyComment() {
+    Array.from(commentSection.querySelectorAll('.comment-item')).filter( (item) => {
+        if(String(item.querySelector('.comment-author-name').textContent) == myName) {
+            //console.log(item);
+            item.classList.add('my-comment');
+        }
+    });
+    return new Promise( (resolve, reject) => {
+        resolve( setCommentItemEvent() )
+    });
+}
+
+export function setCommentItemEvent() {
+    Array.from(commentSection.querySelectorAll('.comment-item')).forEach( (item) => {
+        const replyButton = item.querySelector('.comment-reply');
+        const updateButton = item.querySelector('.comment-update');
+        const deleteButton = item.querySelector('.comment-delete');
+        const upVoteButton = item.querySelector('.rank-up');
+        const downVoteButton = item.querySelector('.rank-down');
+
+        replyButton.addEventListener('click', replyComment);
+        
+    });
+}
+
+export function scrollToTargetElement(id) {
+    Array.from(document.querySelectorAll('.comment-item')).find( (targetItem) => {
+        if(targetItem.id==id) {
+            const offsetY = targetItem.offsetTop-92;
+            window.scrollTo({top: offsetY, behavior: 'smooth'});
+            console.log(targetItem.offsetTop);
+        }
+    })
 }

@@ -203,6 +203,9 @@ h2,
     outline: none;
     font-size: 15px;
 }
+.input-form textarea:focus {
+    border-color: #545bb3;
+}
 .input-form button[type="submit"] {
     background-color: #545bb3;
     color: #FFF;
