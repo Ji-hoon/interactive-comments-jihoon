@@ -6,7 +6,7 @@
 body {
     background-color: #f5f6fa;
     margin: 0;
-    padding: 40px 40px 0 40px;
+    padding: 20px 40px 0 40px;
     position: absolute;
     left: 0;
     right: 0;
@@ -27,27 +27,54 @@ body {
     flex-direction: row;
 }
 
+h2 {
+    position: sticky;
+    background-color: inherit;
+    padding: 20px 0 ;
+    top: 0;
+    z-index: 11;
+}
+h2,
 #comments-section, 
 #comment-input {
     max-width: 600px;
     margin: 0 auto;
-    gap: 12px;
+    gap: 16px;
+}
+
+#comments-section > div:last-child {
+    margin-bottom: 24px;
 }
 
 .comment-item {
     background-color: #FFF;
     padding: 16px;
     border-radius: 5px;
-    gap: 16px;
+    gap: 12px;
     align-items: flex-start;
     cursor: default;
+    position: relative;
 }
-.comment-item:last-child {
-    margin-bottom: 24px;
+.comment-item ~ .input-form {
+    margin-top:-4px;
 }
+
 .reply {
-    margin-left: 48px;
+    margin-left: 60px;
+    gap: 12px;
+    position: relative;
 }
+.reply:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -28px;
+    width: 2px;
+    background-color: #d6d8e1;
+    bottom: 0;
+    border-radius: 2px;
+}
+
 .col-rank {
     background-color: #f5f6fd;
     padding: 4px;
@@ -67,14 +94,17 @@ body {
 }
 .col-content div[class*="comment-author"] {
     align-items: center;
-    gap: 8px;
+    gap: 12px;
 }
 .comment-author-info {
     flex: 1 0;
+    gap: 8px !important;
 }
 .comment-author-name {
     font-weight: bold;
     text-transform: capitalize;
+    display: flex;
+    align-items: center;
 }
 .comment-author-name ~ span {
     color: #808080;
@@ -96,16 +126,17 @@ body {
     display: flex;
     text-decoration: none;
     font-weight: bold;
+    font-size: 15px;
     color: #545bb3;
-    gap: 4px;
+    gap: 5px;
     align-items: center;
 }
 .comment-author a.comment-delete {
     color: #eb646b;
 }
 .comment-author a img {
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
 }
 
 .my-comment .comment-author-name:after {
@@ -114,11 +145,9 @@ body {
     font-weight: bold;
     background-color: #545bb3;
     color: #FFF;
-    padding: 2px 4px;
+    padding: 1px 5px;
     border-radius: 5px;
     margin-left: 4px;
-    transform: translateY(-1px);
-    display: inline-block;
 }
 
 .my-comment .comment-author a.comment-update,
@@ -127,10 +156,14 @@ body {
 }
 .my-comment .comment-author a.comment-reply {
     display: none;
+    pointer-events: none;
+    user-select: none;
 }
 .comment-item:not(.my-comment) .comment-author a.comment-update,
 .comment-item:not(.my-comment) .comment-author a.comment-delete {
     display: none;
+    pointer-events: none;
+    user-select: none;
 }
 
 #comment-input {
