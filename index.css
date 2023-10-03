@@ -7,11 +7,6 @@ body {
     background-color: #f5f6fa;
     margin: 0;
     padding: 20px 40px 0 40px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
     overflow: hidden;
     overflow-y: auto;
     min-height: 100vh;
