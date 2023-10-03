@@ -51,12 +51,12 @@ h2,
     position: relative;
 }
 .comment-item ~ .input-form {
-    margin-top:-4px;
+    margin-top:-8px;
 }
 
 .reply {
     margin-left: 60px;
-    gap: 12px;
+    gap: 16px;
     position: relative;
 }
 .reply:before {
@@ -216,6 +216,7 @@ h2,
     font-size: 15px;
     min-width: 76px;
     cursor: pointer;
+    text-transform: uppercase;
 }
 button[disabled] {
     background-color: #ACACAC !important;

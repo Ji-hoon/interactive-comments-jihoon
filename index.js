@@ -1,52 +1,12 @@
 import {createCommentForm, createComment, checkCharacterLength} from './scripts/createComment.js';
-import {replyComment} from './scripts/replyComment.js';
+import {reply} from './scripts/replyComment.js';
+import {generateCommentElement} from './scripts/template.js';
 
 export const commentSection = document.querySelector('#comments-section');
 
 export let commentData = {};
 export let myName = "";
 
-export function generateCommentElement(originalCommentAuthor, item, replyTo) {
-    //console.log(originalCommentAuthor);
-    return `
-    <div class="comment-item set-flex" id="${item.id}" >
-        <div class="col-rank set-flex direction-col">
-            <a class="btn rank-up" href="#">
-                <img src="./images/icon-plus.svg"/>
-            </a>
-            <div class="">${item.score}</div>
-            <a class="btn rank-down" href="#">
-                <img src="./images/icon-minus.svg"/>
-            </a>
-        </div>
-        <div class="col-content set-flex direction-col">
-            <div class="comment-author set-flex"> 
-                <div class="comment-author-info set-flex">
-                    <img class="comment-author-profile" src="${item.user.image.png}"/>
-                    <span class="comment-author-name">${item.user.username}</span>
-                    <span class="">${item.createdAt}</span>
-                </div>
-                <a class="comment-reply" id="${item.id}" reply-to="${item.replyingTo}" href="#">
-                    <img src="./images/icon-reply.svg"/>
-                    <span>Reply</span>
-                </a>
-                <a class="comment-update" id="${item.id}" href="#">
-                    <img src="./images/icon-edit.svg"/>
-                    <span>Edit</span>
-                </a>
-                <a class="comment-delete" id="${item.id}" href="#">
-                    <img src="./images/icon-delete.svg"/>
-                    <span>Delete</span>
-                </a>
-            </div>
-            <div class="comment-content">
-                <span class="mention">${originalCommentAuthor}</span>
-                ${item.content}
-            </div>
-        </div>
-    </div>
-    `;
-}
 
 // ref - 페이지 로딩 후 실행 함수 : https://m.blog.naver.com/ka28/221991865312
 window.onload = function() {
@@ -80,34 +40,6 @@ export function renderComments(data) {
     let innerContents = "";
     Array.from(data).forEach( (item) => {
         innerContents += generateCommentElement(item.user.username, item, null);
-            // `<div class="comment-item set-flex" id="${item.id}">
-            //     <div class="col-rank set-flex direction-col">
-            //         <a class="btn rank-up" href="#">
-            //             <img src="./images/icon-plus.svg"/>
-            //         </a>
-            //         <div class="">${item.score}</div>
-            //         <a class="btn rank-down" href="#">
-            //             <img src="./images/icon-minus.svg"/>
-            //         </a>
-            //     </div>
-            //     <div class="col-content set-flex direction-col">
-            //         <div class="comment-author set-flex"> 
-            //             <div class="comment-author-info set-flex">
-            //                 <img class="comment-author-profile" src="${item.user.image.png}"/>
-            //                 <span class="comment-author-name">${item.user.username}</span>
-            //                 <span class="">${item.createdAt}</span>
-            //             </div>
-            //             <a class="comment-reply" id="${item.id}" href="#">
-            //                 <img src="./images/icon-reply.svg"/>
-            //                 <span>Reply</span>
-            //             </a>
-            //         </div>
-            //         <div class="comment-content">
-            //             ${item.content}
-            //         </div>
-            //     </div>
-            // </div>
-            // `;
     });
     commentSection.innerHTML = innerContents;
 
@@ -121,46 +53,10 @@ export function renderComments(data) {
 }
 
 export function renderReplies(data) {
-    console.log(data);
+    //console.log(data);
     let innerContents = "";
     Array.from(data.replies).forEach( (item) => {
-        innerContents += generateCommentElement(data.user.username, item, null);
-            // `<div class="comment-item set-flex" id="${item.id}">
-            //     <div class="col-rank set-flex direction-col">
-            //         <a class="btn rank-up" href="#">
-            //             <img src="./images/icon-plus.svg"/>
-            //         </a>
-            //         <div class="">${item.score}</div>
-            //         <a class="btn rank-down" href="#">
-            //             <img src="./images/icon-minus.svg"/>
-            //         </a>
-            //     </div>
-            //     <div class="col-content set-flex direction-col">
-            //         <div class="comment-author set-flex"> 
-            //             <div class="comment-author-info set-flex">
-            //                 <img class="comment-author-profile" src="${item.user.image.png}"/>
-            //                 <span class="comment-author-name">${item.user.username}</span>
-            //                 <span class="">${item.createdAt}</span>
-            //             </div>
-            //             <a class="comment-reply" id="${item.id}" href="#">
-            //                 <img src="./images/icon-reply.svg"/>
-            //                 <span>Reply</span>
-            //             </a>
-            //             <a class="comment-update" id="${item.id}" href="#">
-            //                 <img src="./images/icon-edit.svg"/>
-            //                 <span>Edit</span>
-            //             </a>
-            //             <a class="comment-delete" id="${item.id}" href="#">
-            //                 <img src="./images/icon-delete.svg"/>
-            //                 <span>Delete</span>
-            //             </a>
-            //         </div>
-            //         <div class="comment-content">
-            //             <span class="mention">${data.user.username}</span>${item.content}
-            //         </div>
-            //     </div>
-            // </div>
-            // `;
+        innerContents += generateCommentElement(item.replyingTo, item, null);
     })
 
     // ref - 부모 자식 노드, 요소 찾기 : https://hianna.tistory.com/712
@@ -169,7 +65,7 @@ export function renderReplies(data) {
     //      : https://blog.asamaru.net/2016/12/06/how-to-do-insertafter-in-javascript/
     Array.from(commentSection.children).find( (targetItem) => {
         if(targetItem.id==data.id) {
-            console.log(targetItem);
+            //console.log(targetItem);
             targetItem.insertAdjacentHTML('afterend', 
                 `<div class="reply set-flex direction-col" reply-to="${targetItem.id}">${innerContents}</div>`);
         }
@@ -201,17 +97,21 @@ export function setCommentItemEvent() {
         const upVoteButton = item.querySelector('.rank-up');
         const downVoteButton = item.querySelector('.rank-down');
 
-        replyButton.addEventListener('click', replyComment);
+        replyButton.addEventListener('click', reply);
         
     });
 }
 
 export function scrollToTargetElement(id) {
+    //console.log(document.querySelectorAll('.comment-item'));
     Array.from(document.querySelectorAll('.comment-item')).find( (targetItem) => {
         if(targetItem.id==id) {
-            const offsetY = targetItem.offsetTop-92;
-            window.scrollTo({top: offsetY, behavior: 'smooth'});
-            console.log(targetItem.offsetTop);
+            //ref - how to get the absolute position of element : 
+            // https://tutorial.eyehunts.com/js/get-absolute-position-of-element-javascript-html-element-browser-window/
+            const scrollY = window.scrollY;
+            const offsetY = targetItem.getBoundingClientRect().top;
+            //console.log(offsetY);
+            window.scrollTo({top: scrollY+offsetY-91.5, behavior: 'smooth'});
         }
     })
 }

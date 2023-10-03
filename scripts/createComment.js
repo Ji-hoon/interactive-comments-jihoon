@@ -2,17 +2,18 @@ import {
     commentData,
     myName,
     commentSection,
-    generateCommentElement,
     filterMyComment,
     reloadData
     } from '../index.js';
+import {generateCommentElement} from './template.js';
+
 
 export const createCommentForm = document.querySelector('#comment-input .input-form form');
 createCommentForm.addEventListener('submit', createComment);
 
 export const createCommentButton = document.querySelector('#comment-input .input-form button[type="submit"]');
 export const createCommentField = document.querySelector('#comment-input .input-form textarea');
-createCommentField.addEventListener('keyup', checkCharacterLength);
+createCommentField.addEventListener('keyup', checkCharacterLength );
 
 
 export function checkCharacterLength(e) {
@@ -26,7 +27,7 @@ export function createComment (e) {
     //console.log(e); // e.target[0].value : 12\n123\n12\n321
     // ref - textarea 있는 그대로 출력하기 : https://oneshottenkill.tistory.com/320
 
-    const newCommentId = commentSection.children.length+2;
+    const newCommentId = document.querySelectorAll('.comment-item').length+1;
     commentData.push({
           "id": newCommentId,
           "content": translateNewLineIntoBr(e.target[0].value),
@@ -78,7 +79,7 @@ export function createNewCommentInput(label, id) {
     <div class="input-form temp set-flex" id="${id}">
         <img src="./images/avatars/image-juliusomo.png"/>
         <form class="set-flex">
-        <textarea id="comment" placeholder="Add a comment..." rows="2" cols="20" wrap="hard"></textarea>
+        <textarea id="comment" placeholder="Add a ${label}..." rows="2" cols="20" wrap="hard"></textarea>
         <button type="submit" disabled="disabled">${label}</button>
         </form>
     </div>
