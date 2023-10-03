@@ -86,6 +86,7 @@ h2,
 }
 .col-content {
     gap: 8px;
+    flex: 1 0;
 }
 .col-content div[class*="comment-author"] {
     align-items: center;
@@ -213,7 +214,10 @@ h2,
     min-width: 76px;
     cursor: pointer;
 }
-
+button[disabled] {
+    background-color: #ACACAC !important;
+    pointer-events: none;
+}
 
 /* 
  * loading spinner css

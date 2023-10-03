@@ -1,10 +1,12 @@
-const commentSection = document.querySelector('#comments-section');
+import {createCommentForm, createComment} from './scripts/createComment.js';
 
-let commentData = {};
-let myName = "";
+export const commentSection = document.querySelector('#comments-section');
 
-function commentTemplate(originalCommentAuthor, item) {
-    console.log(originalCommentAuthor);
+export let commentData = {};
+export let myName = "";
+
+export function commentTemplate(originalCommentAuthor, item) {
+    //console.log(originalCommentAuthor);
     return `
     <div class="comment-item set-flex" id="${item.id}">
         <div class="col-rank set-flex direction-col">
@@ -51,7 +53,7 @@ window.onload = function() {
     getJSONData('./data.json');
 }
 
-function getJSONData(json) {
+export function getJSONData(json) {
     fetch(json)
     .then(res => res.json() )
     .then(data => {
@@ -62,18 +64,18 @@ function getJSONData(json) {
     });
 }
 
-function reloadData() {
+export function reloadData() {
     window.scrollTo(0,0);
     commentSection.innerHTML =
     `<div class="main__loading spinner">
         <h3><span class="visually-hidden">visuallyhidden</span></h3>
     </div>`;
     return new Promise((resolve, reject) => {
-        resolve( setTimeout( ()=> renderComments(commentData), 500) )
+        resolve( setTimeout( ()=> renderComments(commentData), 300) )
     });
 }
 
-function renderComments(data) {
+export function renderComments(data) {
     let innerContents = "";
     Array.from(data).forEach( (item) => {
         innerContents += commentTemplate(item.user.username, item);
@@ -117,7 +119,7 @@ function renderComments(data) {
     });
 }
 
-function renderReplies(data) {
+export function renderReplies(data) {
     console.log(data);
     let innerContents = "";
     Array.from(data.replies).forEach( (item) => {
