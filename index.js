@@ -46,17 +46,29 @@ function commentTemplate(originalCommentAuthor, item) {
 }
 
 // ref - 페이지 로딩 후 실행 함수 : https://m.blog.naver.com/ka28/221991865312
-window.onload = function () {
+window.onload = getJSONData();
+
+function getJSONData() {
     fetch('./data.json')
-        .then(res => res.json() )
-        .then(data => {
-            commentData = data;
-            myName = data.currentUser.username;
-            
-            renderComments(commentData.comments);
-            //console.log(commentData.comments);
-        });
-};
+    .then(res => res.json() )
+    .then(data => {
+        commentData = data;
+        myName = data.currentUser.username;
+        
+        renderComments(commentData.comments);
+        //console.log(commentData.comments);
+    });
+}
+
+function reloadData() {
+    commentSection.innerHTML =
+    `<div class="main__loading spinner">
+        <h3><span class="visually-hidden">visuallyhidden</span></h3>
+    </div>`;
+    return new Promise((resolve, reject) => {
+        resolve( getJSONData() )
+    });
+}
 
 function renderComments(data) {
     let innerContents = "";
