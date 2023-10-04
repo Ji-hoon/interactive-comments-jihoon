@@ -112,9 +112,20 @@ export function replyComment(e, targetId) {
         })
     }
     
+    let newComment;
+    
     setTimeout( () => {
         renderComments(commentData);
         //console.log(commentData);
+
+        newComment = Array.from(document.getElementsByClassName('comment-item'))
+            .find( (item) => item.id == newCommentId);
+        newComment.classList.add('blink');
+
+        setTimeout( () => {
+            newComment.classList.remove('blink');
+        }, 1400);
+
         Array.from(document.querySelectorAll('.comment-item')).find( (targetItem) => {
             if(targetItem.id == newCommentId) {
                 //ref - how to get the absolute position of element : 
@@ -125,7 +136,7 @@ export function replyComment(e, targetId) {
                 window.scrollTo({top: scrollY+offsetY-88, behavior: 'smooth'});
             }
         })
-    }, 300);
+    }, 200);
     
 }
 

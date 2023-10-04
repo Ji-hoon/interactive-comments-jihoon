@@ -53,6 +53,8 @@ export function createComment (e) {
         document.querySelector('.input-form.temp').remove();
     }
     
+    let newComment;
+
     setTimeout( () => {
         const newCommentData = commentData.find( (item) => item.id == newCommentId);
         const newCommentElement = generateCommentElement(myName, newCommentData, null);
@@ -61,6 +63,15 @@ export function createComment (e) {
 
         let targetPos = document.querySelector('body').offsetHeight;
         window.scrollTo({top: targetPos, behavior: 'smooth'});
+
+        newComment = Array.from(document.getElementsByClassName('comment-item'))
+            .find( (item) => item.id == newCommentId);
+        newComment.classList.add('blink');
+
+        setTimeout( () => {
+            newComment.classList.remove('blink');
+        }, 1400);
+        
         // ref - scroll-behavior : https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior
     }, 200);
     
