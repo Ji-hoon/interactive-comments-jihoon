@@ -53,6 +53,7 @@ h2,
     align-items: flex-start;
     cursor: default;
     position: relative;
+    box-shadow:  0 0 0px 1px rgb(196 200 220 / 25%);
     transition: box-shadow 300ms ease-in-out;
 }
 .comment-item ~ .input-form {
@@ -199,8 +200,10 @@ h2,
     bottom: 0;
     gap: 8px;
     background-color: inherit;
-    border-bottom: 16px solid #f5f6fa;
-    padding-top: 8px;
+    /* border-bottom: 16px solid #f5f6fa; */
+    padding: 8px 8px 16px;
+    background: rgb(245 246 250 / 80%);
+    backdrop-filter: blur(7px);
 }
 .input-form {
     border-radius: 5px;
