@@ -11,7 +11,7 @@
 - 별도 Branch 생성 후 Pull Request 단위로 Merge
 - 다른 팀원들의 작업한 PR을 리뷰하고 코멘트 남기기
 
-## 사용 스택
+## 사용 기술
 HTML, CSS, Vanilla JS
 
   
