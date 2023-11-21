@@ -1,5 +1,8 @@
 # Interactive Comment Section
-1차 스터디 6팀 - 프론트엔드 프로젝트 스터디 1주차에서는 frontend mentor 사이트의 [Interactive Comment Section](https://www.frontendmentor.io/challenges/interactive-comments-section-iG1RugEG9) 프로젝트 구현을 진행했습니다.
+![코멘트 및 댓글 작성](https://user-images.githubusercontent.com/6611105/272307373-a11ebe26-f169-447b-8762-999cf2b55356.gif)
+
+## 안녕하세요!
+본 리포지토리에는 엘리스 트랙 1차 스터디 (프론트엔드 프로젝트 스터디) 1주차에 진행한 frontend mentor 사이트의 [Interactive Comment Section](https://www.frontendmentor.io/challenges/interactive-comments-section-iG1RugEG9) 프로젝트를 진행한 내용이 포함되어 있습니다.
 
 ## 스터디 진행 방식
  
@@ -11,10 +14,6 @@
 ## 사용 스택
 HTML, CSS, Vanilla JS
 
-## 프로젝트 결과물
-
-![코멘트 및 댓글 작성](https://user-images.githubusercontent.com/6611105/272307373-a11ebe26-f169-447b-8762-999cf2b55356.gif)
-- Github Repository : https://github.com/elice-study-first/interactive-comments-jihoon
   
 ## 주요 구현 내용
 
@@ -35,7 +34,7 @@ HTML, CSS, Vanilla JS
 - [ ] 로컬 스토리지를 활용해 변경된 데이터 저장하기
 
 
-## 1주차 회고 
+## 프로젝트 회고 
 
 ### 느낀 점
 - 기존 수업과 병행하며 프로젝트를 같이 진행하다보니 예상보다 시간이 더 걸린다는 걸 깨달음
